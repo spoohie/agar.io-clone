@@ -1,17 +1,14 @@
 #include <iostream>
-#include <random>
-#include <functional>
+#include <random>     //random numbers
+#include <functional> //std::bind
+
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
-#include "Ball.hpp"
 
-const int windowHeight = 1366;
-const int windowWidth = 768;
-const int minColor = 10;
-const int maxColor = 235;
-const int maxFood = 500;
-const int ball_size = 15;
+#include "Ball.hpp"
+#include "Const.hpp"
+
 
 
 
@@ -35,7 +32,7 @@ int main(int argc, char const *argv[]) {
     auto rnd_col = std::bind(col,gen);
 
 
-  Ball pilka(rnd_ball(),rnd_ball(),ball_size,0,0,255);
+  Ball pilka(rnd_ball(),rnd_ball(),playerInitSize,0,0,255);
   pilka.makeFancy();
 
 

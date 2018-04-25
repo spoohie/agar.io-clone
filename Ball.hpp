@@ -10,9 +10,9 @@ private:
   sf::CircleShape shape_;
 public:
   Ball (float , float , float, int, int, int );
-  sf::CircleShape get();
+  sf::CircleShape get(); //public access to shape_
 
-//PILECZKA GRACZA
+//Player's ball
  void makeFancy();
 
 
