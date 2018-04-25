@@ -1,5 +1,3 @@
-#pragma once
-
 const int windowHeight = 1366;
 const int windowWidth = 768;
 const int minColor = 10;
