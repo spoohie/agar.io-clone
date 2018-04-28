@@ -1,5 +1,7 @@
 #include "Ball.hpp"
 
+
+
  Ball::Ball (float x, float y, float r, int red, int green, int blue)
  {
    x_coeff = x/100;
