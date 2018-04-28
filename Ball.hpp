@@ -1,9 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include <SFML/Window.hpp>
-#include <SFML/OpenGL.hpp>
-#include <SFML/Graphics.hpp>
+#include "Const.hpp"
+
 
 class Ball {
 private:

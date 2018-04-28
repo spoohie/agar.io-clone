@@ -2,10 +2,6 @@
 #include <random>     //random numbers
 #include <functional> //std::bind
 
-#include <SFML/Window.hpp>
-#include <SFML/OpenGL.hpp>
-#include <SFML/Graphics.hpp>
-
 #include "Ball.hpp"
 #include "Const.hpp"
 
