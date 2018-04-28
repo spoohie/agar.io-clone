@@ -4,11 +4,8 @@
 
 #include "Ball.hpp"
 #include "Const.hpp"
-#include "Headers.hpp"
-
-
-
-
+#include "Player.hpp"
+#include "Food.hpp"
 
 int main(int argc, char const *argv[]) {
 
@@ -35,15 +32,14 @@ int main(int argc, char const *argv[]) {
     sf::RenderWindow window(sf::VideoMode(windowWidth,windowHeight), "Agar.io", sf::Style::Default, contextSettings_);
 
 
-  Ball pilka(rnd_ball()*window.getSize().x/100,rnd_ball()*window.getSize().y/100,playerInitSize,0,0,255);
-  pilka.makeFancy();
-
+  Player pilka(rnd_ball(),rnd_ball(),playerInitSize,0,0,255);
+  pilka.update(window);
 
     // Generowanie spamu
-    std::vector<Ball> spam;
+    std::vector<Food> spam;
     for(int i=0; i<maxFood ;i++)
     {
-      Ball food(rnd_pos(),rnd_pos(),5,rnd_col(),rnd_col(),rnd_col());
+      Food food(rnd_pos(),rnd_pos(),5,rnd_col(),rnd_col(),rnd_col());
       spam.push_back(food);
     }
 
@@ -62,15 +58,18 @@ int main(int argc, char const *argv[]) {
       if (event.type == sf::Event::Resized)
       {
         window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+        for(auto& spam_ : spam) spam_.update(window);
+        pilka.update(window);
       }
       if (event.type == sf::Event::Closed)
         window.close();
+      if ((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Right))
+        for(auto& spam_ : spam) spam_.update(window);
     }
 
     window.clear(sf::Color(2,2,2));
-    for(auto& spam_ : spam) spam_.update(window);
-    for(auto& spam_ : spam) window.draw(spam_.get());
-    window.draw(pilka.get());
+    for(auto& spam_ : spam) window.draw(spam_.shape_);
+    window.draw(pilka.shape_);
     window.display();
   }
 
