@@ -1,11 +1,13 @@
 #include <iostream>
 #include <random>     //random numbers
 #include <functional> //std::bind
+#include <SFML/Window.hpp>
 
 #include "Ball.hpp"
 #include "Const.hpp"
 #include "Player.hpp"
 #include "Food.hpp"
+#include "Gamer.hpp"
 
 int main(int argc, char const *argv[]) {
 
@@ -32,7 +34,7 @@ int main(int argc, char const *argv[]) {
     sf::RenderWindow window(sf::VideoMode(windowWidth,windowHeight), "Agar.io", sf::Style::Default, contextSettings_);
 
 
-  Player pilka(rnd_ball(),rnd_ball(),playerInitSize,0,0,255);
+  Gamer pilka(rnd_ball(),rnd_ball(),playerInitSize,0,0,255);
   pilka.update(window);
 
     // Generowanie spamu
@@ -44,35 +46,41 @@ int main(int argc, char const *argv[]) {
     }
 
 
+    pilka.update(window);
+
+      window.setActive();
 
 
-  window.setActive();
-
-  while(window.isOpen())
-  {
-    sf::Event event;
-    while(window.pollEvent(event))
-    {
-      if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
-        window.close();
-      if (event.type == sf::Event::Resized)
+      while(window.isOpen())
       {
-        window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
-        for(auto& spam_ : spam) spam_.update(window);
-        pilka.update(window);
+        sf::Event event;
+        while(window.pollEvent(event))
+        {
+            if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
+                window.close();
+
+            if (event.type == sf::Event::Closed)
+                window.close();
+
+            if (event.type == sf::Event::Resized)
+            {
+                window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+                for(auto& spam_ : spam) spam_.update(window);
+
+            }
+
+            // if ((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Right))
+            //     for(auto& spam_ : spam) spam_.update(window);
+
+        }
+        //TUTAJ RYSUJE SIE WSZYSTKO
+        window.clear(sf::Color(2,2,2));
+        for(auto& spam_ : spam) window.draw(spam_.shape_);
+        window.draw(pilka.shape_);
+        pilka.movement(window);
+        window.display();
       }
-      if (event.type == sf::Event::Closed)
-        window.close();
-      if ((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Right))
-        for(auto& spam_ : spam) spam_.update(window);
-    }
-
-    window.clear(sf::Color(2,2,2));
-    for(auto& spam_ : spam) window.draw(spam_.shape_);
-    window.draw(pilka.shape_);
-    window.display();
-  }
 
 
-  return 0;
+      return 0;
 }

@@ -1,5 +1,5 @@
 #include "Ball.hpp"
-
+#include <cmath>
 
  Ball::Ball (float x, float y, float r, int red, int green, int blue)
  {
@@ -17,5 +17,6 @@ void Ball::update(sf::RenderWindow &window)
 
   shape_.setOrigin(r_, r_);
 }
+
 
  Ball::~Ball(){}
