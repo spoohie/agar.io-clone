@@ -15,6 +15,7 @@ public:
   //sf::CircleShape get(); //public access to shape_
 
  void update(sf::RenderWindow &window);
+ void settingPosition(sf::RenderWindow &window);
 
 
   // virtual void update() = 0;

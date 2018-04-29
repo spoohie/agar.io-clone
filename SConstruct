@@ -8,5 +8,6 @@ if(platform.system() == "Linux"):
     env.Append( CPPFLAGS = '-Wall -pedantic -pthread' )
     env.Append( LINKFLAGS = '-Wall -pthread' )
     env.Append( LIBS = ['sfml-graphics', 'sfml-window', 'sfml-system'] )
+    env.Append( CXXFLAGS="-std=c++0x")
 
 env.Program( source = ['main.cpp','Ball.cpp','Const.hpp', 'Player.cpp', 'Food.cpp', 'Gamer.cpp'], target = 'twojastara')

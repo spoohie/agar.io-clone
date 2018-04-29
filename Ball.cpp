@@ -10,11 +10,17 @@
  }
 
 
+//Rozdzielilem od siebie setPosition i rzeczy od promienia, tak aby dalo sie zmieniac promien sterowanej kulki w ładny sposob
+
+void Ball::settingPosition(sf::RenderWindow &window)
+{
+    shape_.setPosition(x_coeff*window.getSize().x, y_coeff*window.getSize().y);
+}
+
 void Ball::update(sf::RenderWindow &window)
 {
-  shape_.setPosition(x_coeff*window.getSize().x, y_coeff*window.getSize().y);
+  //shape_.setPosition(x_coeff*window.getSize().x, y_coeff*window.getSize().y);
   shape_.setRadius(r_);
-
   shape_.setOrigin(r_, r_);
 }
 

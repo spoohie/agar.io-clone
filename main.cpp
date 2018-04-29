@@ -2,6 +2,7 @@
 #include <random>     //random numbers
 #include <functional> //std::bind
 #include <SFML/Window.hpp>
+#include <boost/range/algorithm.hpp>
 
 #include "Ball.hpp"
 #include "Const.hpp"
@@ -35,7 +36,8 @@ int main(int argc, char const *argv[]) {
 
 
   Gamer pilka(rnd_ball(),rnd_ball(),playerInitSize,0,0,255);
-  pilka.update(window);
+  pilka.settingPosition(window);
+
 
     // Generowanie spamu
     std::vector<Food> spam;
@@ -46,10 +48,9 @@ int main(int argc, char const *argv[]) {
     }
 
 
-    pilka.update(window);
+    
 
       window.setActive();
-
 
       while(window.isOpen())
       {
@@ -65,7 +66,11 @@ int main(int argc, char const *argv[]) {
             if (event.type == sf::Event::Resized)
             {
                 window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
-                for(auto& spam_ : spam) spam_.update(window);
+                for(auto& spam_ : spam)
+                {
+                    spam_.settingPosition(window);
+                    spam_.update(window);
+                }
 
             }
 
@@ -75,8 +80,10 @@ int main(int argc, char const *argv[]) {
         }
         //TUTAJ RYSUJE SIE WSZYSTKO
         window.clear(sf::Color(2,2,2));
+        spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka](Food f){ return pilka.intersect(f);}), spam.end());
         for(auto& spam_ : spam) window.draw(spam_.shape_);
         window.draw(pilka.shape_);
+        pilka.update(window);
         pilka.movement(window);
         window.display();
       }
