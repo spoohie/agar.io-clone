@@ -10,9 +10,10 @@ if(platform.system() == "Linux"):
     env.Append( LIBS = ['sfml-graphics', 'sfml-window', 'sfml-system'] )
     env.Append( CXXFLAGS="-std=c++0x")
 
+    env_test.VariantDir('testdir','.',duplicate=0)
     env_test.Append( CPPFLAGS = '-Wall -pedantic' )
     env_test.Append( LINKFLAGS = '-Wall -pthread' )
     env_test.Append( LIBS = ['boost_unit_test_framework'] )
 
 env.Program( source = ['main.cpp','Ball.cpp','Const.hpp', 'Player.cpp', 'Food.cpp', 'Gamer.cpp', 'Game.cpp'], target = 'agario')
-env_test.Program( source = ['GameTest.cpp', 'Game.cpp'], target = 'agario_main_test')
+env_test.Program( source = ['GameTest.cpp', 'testdir/Game.cpp'], target = 'agario_game_test')

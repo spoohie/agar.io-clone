@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_SUITE( main_test_tools )
 
 
 BOOST_AUTO_TEST_CASE( RandomGenerators ) {
-    //std::cout << velocity_factor << std::endl;
+    std::cout << velocity_factor << std::endl;
     int a = 2;
     BOOST_WARN( sizeof(int) < sizeof(long) );
     BOOST_CHECK( a == 1 );
