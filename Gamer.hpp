@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Const.hpp"
-class Gamer : public Player {
+class Gamer : public Player 
+{
 private:
     sf::Vector2i mouse_pos;
 public:

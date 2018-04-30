@@ -6,8 +6,9 @@
 #include <SFML/Graphics.hpp>
 #include "Ball.hpp"
 
-class Food : public Ball {
+class Food : public Ball 
+{
 public:
-  Food (float , float , float, int, int, int );
-  ~Food ();
+    Food (float , float , float, int, int, int );
+    ~Food ();
 };

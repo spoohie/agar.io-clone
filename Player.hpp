@@ -8,11 +8,13 @@
 #include "Ball.hpp"
 #include "Food.hpp"
 #include "Const.hpp"
-class Player : public Ball {
+
+class Player : public Ball 
+{
 public:
-  Player (float , float , float, int, int, int );
-  float velocity;
-  bool intersect(Food&);
-  void growing(Food&);
-  ~Player ();
+    Player (float , float , float, int, int, int );
+    float velocity;
+    bool intersect(Food&);
+    void growing(Food&);
+    ~Player ();
 };

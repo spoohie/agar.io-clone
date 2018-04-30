@@ -1,7 +1,6 @@
 #include "Gamer.hpp"
 
-Gamer::Gamer(float x, float y, float r, int red, int green, int blue) : Player(x, y, r, red, green, blue)
-{}
+Gamer::Gamer(float x, float y, float r, int red, int green, int blue) : Player(x, y, r, red, green, blue) {}
 
 void Gamer::movement(sf::RenderWindow& window)
 {
