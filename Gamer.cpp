@@ -15,4 +15,22 @@ void Gamer::movement(sf::RenderWindow& window)
     shape_.move(velocity*diff_x,velocity*diff_y);
 }
 
+void Gamer::speedup()
+{
+    // auto v = velocity;
+    //
+    // if (r_ > 1.005*playerInitSize)
+    // {
+    //     r_ /= 1.005;
+    //     velocity = 4(r_-playerInitSize)*velocity;
+    // }
+    // velocity = v;
+    if(r_> 2* playerInitSize)
+    {
+        // auto v = velocity;
+        velocity = std::min(2*velocity,5*velocity_factor/playerInitSize);
+        r_ /= 1.005;
+    }
+}
+
 Gamer::~Gamer() {}

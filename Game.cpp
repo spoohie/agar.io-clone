@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 Game::Game()
-{    
+{
     // ta część zostanie przeniesiona do osobnego pliku, tak aby wykonywała się tylko raz
     std::random_device rd;    //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
@@ -34,12 +34,12 @@ Game::Game()
     }
 
 
-    
+
 
     window.setActive();
-       
+
        //sf::Mouse::setPosition(sf::Vector2i(windowWidth/2, windowHeight/2), window);
-       
+
    while(window.isOpen())
    {
         sf::Event event;
@@ -59,7 +59,13 @@ Game::Game()
                     spam_.settingPosition(window);
                     spam_.update(window);
                 }
+            }
 
+            if ((event.type == sf::Event::KeyPressed)&&(event.key.code == sf::Keyboard::Space))
+            {
+                // sf::Clock clk;
+                // while(clk.getElapsedTime().asSeconds() < 10)
+                    pilka.speedup();
             }
 
           // if ((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Right))
