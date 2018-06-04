@@ -1,19 +1,18 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-
-#define NUMOFITEMS 3
+#include "Const.hpp"
 
 class Menu {
 private:
     int select;
     sf::Font font;
-    sf::Text menu[NUMOFITEMS];
+    sf::Text menu[numberOfMenuItems];
 
 public:
     Menu (float, float);
     ~Menu ();
 
-    void draw(sf::RenderWindow& /*&window*/);
+    void draw(sf::RenderWindow&);
     void moveUp();
     void moveDown();
     int getItem();
