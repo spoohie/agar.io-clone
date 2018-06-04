@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-void Game::init()
+void Game::init(sf::RenderWindow &window)
 {
     // ta część zostanie przeniesiona do osobnego pliku, tak aby wykonywała się tylko raz
     std::random_device rd;    //Will be used to obtain a seed for the random number engine
@@ -20,8 +20,7 @@ void Game::init()
 
 
 
-    sf::RenderWindow window(sf::VideoMode(windowWidth,windowHeight), "Agar.io", sf::Style::Default, contextSettings_);
-    contextSettings_.depthBits = 32;
+
     Gamer pilka(rnd_ball(),rnd_ball(),playerInitSize,0,0,255);
     pilka.settingPosition(window);
 
@@ -37,6 +36,11 @@ void Game::init()
 
        //sf::Mouse::setPosition(sf::Vector2i(windowWidth/2, windowHeight/2), window);
 
+       for(auto& spam_ : spam)
+       {
+           spam_.settingPosition(window);
+           spam_.update(window);
+       }
    while(window.isOpen())
    {
         sf::Event event;
@@ -60,19 +64,12 @@ void Game::init()
 
             if ((event.type == sf::Event::KeyPressed)&&(event.key.code == sf::Keyboard::Space))
             {
-                // sf::Clock clk;
-                // while(clk.getElapsedTime().asSeconds() < 10)
-                    pilka.speedup();
+                pilka.speedup();
             }
             if ((event.type == sf::Event::KeyReleased)&&(event.key.code == sf::Keyboard::Space))
             {
-                // sf::Clock clk;
-                // while(clk.getElapsedTime().asSeconds() < 10)
-                    pilka.defaultSpeed();
+                pilka.defaultSpeed();
             }
-
-          // if ((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Right))
-          //     for(auto& spam_ : spam) spam_.update(window);
 
         }
       //TUTAJ RYSUJE SIE WSZYSTKO
