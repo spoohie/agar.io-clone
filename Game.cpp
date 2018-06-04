@@ -33,9 +33,6 @@ Game::Game()
        spam.push_back(food);
     }
 
-
-
-
     window.setActive();
 
        //sf::Mouse::setPosition(sf::Vector2i(windowWidth/2, windowHeight/2), window);
@@ -66,6 +63,12 @@ Game::Game()
                 // sf::Clock clk;
                 // while(clk.getElapsedTime().asSeconds() < 10)
                     pilka.speedup();
+            }
+            if ((event.type == sf::Event::KeyReleased)&&(event.key.code == sf::Keyboard::Space))
+            {
+                // sf::Clock clk;
+                // while(clk.getElapsedTime().asSeconds() < 10)
+                    pilka.defaultSpeed();
             }
 
           // if ((event.type == sf::Event::MouseButtonPressed) && (event.mouseButton.button == sf::Mouse::Right))
