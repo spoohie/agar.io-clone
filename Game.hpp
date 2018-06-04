@@ -14,6 +14,7 @@ class Game
 {
 public:
     Game();
+    void init();
     Gamer pilka(float x, float y, float r, int red, int green, int blue);
     std::vector<Food> spam;
     sf::ContextSettings contextSettings_;

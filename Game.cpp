@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-Game::Game()
+void Game::init()
 {
     // ta część zostanie przeniesiona do osobnego pliku, tak aby wykonywała się tylko raz
     std::random_device rd;    //Will be used to obtain a seed for the random number engine
@@ -85,5 +85,5 @@ Game::Game()
         window.display();
     }
 }
-
+Game::Game(){}
 Game::~Game(){}
