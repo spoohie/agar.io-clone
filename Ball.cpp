@@ -14,6 +14,11 @@ void Ball::settingPosition(sf::RenderWindow &window)
     shape_.setPosition(x_coeff*window.getSize().x, y_coeff*window.getSize().y);
 }
 
+sf::Vector2f Ball::returnPosition()
+{
+    return shape_.getPosition();
+}
+
 void Ball::update(sf::RenderWindow &window)
 {
     shape_.setRadius(r_);

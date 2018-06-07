@@ -126,6 +126,10 @@ void Game::init(sf::RenderWindow &window)
 
         //std::cout << "procent: " << static_cast<int>(100*(maxFood - spamsize)/maxFood) << ", spam size: " <<spamsize << ", max size: " << maxFood << ", time elapsed: "<< std::endl;
 
+        sf::Vector2f positionchuj = pilka.returnPosition();
+
+        std::cout << positionchuj.x << positionchuj.y << std::endl;
+
         for(auto& spam_ : spam) window.draw(spam_.shape_);
 
         window.draw(pilka.shape_);

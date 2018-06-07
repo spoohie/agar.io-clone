@@ -17,6 +17,7 @@ public:
 
     void update(sf::RenderWindow &window);
     void settingPosition(sf::RenderWindow &window);
+    sf::Vector2f returnPosition();
 
     virtual ~Ball () = 0;
 };
