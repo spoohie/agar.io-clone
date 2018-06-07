@@ -15,13 +15,18 @@ void Game::init(sf::RenderWindow &window)
     auto rnd_ball = std::bind(dis_ball,gen); //player's position generator
     auto rnd_col = std::bind(col,gen); //color generator
 
+    std::random_device rd3;
+    std::uniform_int_distribution<int> int_distribution(1, 100);
+    std::mt19937 prob_eng(rd3());
+
 
 
     //initialize player
     Gamer pilka(rnd_ball(),rnd_ball(),playerInitSize,0,0,255);
     pilka.settingPosition(window);
 
-
+    window.setActive();
+    
     // food generating
     for(int i=0; i<=maxFood ;++i)
     {
@@ -29,14 +34,15 @@ void Game::init(sf::RenderWindow &window)
        spam.push_back(food);
     }
 
-    window.setActive();
+   for(auto& spam_ : spam)
+   {
+       //necessary while comming from menu
+       spam_.settingPosition(window);
+       spam_.update(window);
+   }
 
-       for(auto& spam_ : spam)
-       {
-           //necessary while comming from menu
-           spam_.settingPosition(window);
-           spam_.update(window);
-       }
+   sf::Clock food_clock;
+   //sf::Time food_clock_elapsed = food_clock.getElapsedTime();
 
    while(window.isOpen())
    {
@@ -74,6 +80,22 @@ void Game::init(sf::RenderWindow &window)
         window.clear(sf::Color(2,2,2));
 
         spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka](Food f){ return pilka.intersect(f);}), spam.end());
+        
+        spamsize = static_cast<int>(spam.size());
+        
+        if (spamsize < maxFood && food_clock.getElapsedTime().asMilliseconds() > food_time)
+        {
+            food_clock.restart();
+            if(int_distribution(prob_eng) < (static_cast<int>(100*(maxFood - spamsize)/maxFood)+10))
+            {
+                Food food(rnd_pos(),rnd_pos(),5,rnd_col(),rnd_col(),rnd_col());
+                spam.push_back(food);
+                spam.back().settingPosition(window);
+                spam.back().update(window);
+            }
+        }
+
+        //std::cout << "chuj: " << static_cast<int>(100*(maxFood - spamsize)/maxFood) << ", spam size: " <<spamsize << ", max size: " << maxFood << ", time elapsed: "<< std::endl;
 
         for(auto& spam_ : spam) window.draw(spam_.shape_);
 

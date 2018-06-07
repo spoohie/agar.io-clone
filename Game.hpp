@@ -16,6 +16,7 @@ public:
     Game();
     void init(sf::RenderWindow &);
     Gamer pilka(float x, float y, float r, int red, int green, int blue);
+    int spamsize;
     std::vector<Food> spam;
     ~Game();
 };
