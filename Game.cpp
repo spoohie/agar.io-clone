@@ -9,10 +9,10 @@ void Game::init(sf::RenderWindow &window)
     std::mt19937 gen2(rd2());
 
     std::uniform_real_distribution<> dis_w(1,99);
-    std::uniform_real_distribution<> dis_ball(2, 98);
+    //std::uniform_real_distribution<> dis_ball(2, 98);
     std::uniform_int_distribution<> col(minColor,maxColor);
     auto rnd_pos = std::bind(dis_w, gen); //foods' position generator
-    auto rnd_ball = std::bind(dis_ball,gen); //player's position generator
+    //auto rnd_ball = std::bind(dis_ball,gen); //player's position generator
     auto rnd_col = std::bind(col,gen); //color generator
 
     std::random_device rd3;
@@ -22,10 +22,24 @@ void Game::init(sf::RenderWindow &window)
 
 
     //initialize player
-    Gamer pilka(rnd_ball(),rnd_ball(),playerInitSize,0,0,255);
+    Gamer pilka(48,48,playerInitSize,0,0,255);
     pilka.settingPosition(window);
 
     window.setActive();
+
+    // spikes generating
+    for (int i=0; i<numspikes; ++i)
+    {
+        Spike spike(rnd_pos(),rnd_pos(), spikesSize, 255,255,0);
+        spikes.push_back(spike);
+    }
+
+    for(auto& spike_ : spikes)
+   {
+       //necessary while comming from menu
+       spike_.settingPosition(window);
+       spike_.update(window);
+   }
     
     // food generating
     for(int i=0; i<=maxFood ;++i)
@@ -63,6 +77,12 @@ void Game::init(sf::RenderWindow &window)
                     spam_.settingPosition(window);
                     spam_.update(window);
                 }
+                 for(auto& spike_ : spikes)
+                {
+                   //necessary while comming from menu
+                    spike_.settingPosition(window);
+                    spike_.update(window);
+                }
             }
 
             if ((event.type == sf::Event::KeyPressed)&&(event.key.code == sf::Keyboard::Space))
@@ -79,7 +99,16 @@ void Game::init(sf::RenderWindow &window)
       //there are all of the mysteries (loop based)
         window.clear(sf::Color(2,2,2));
 
-        spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka](Food f){ return pilka.intersect(f);}), spam.end());
+        for(auto& spike_ : spikes) 
+        {
+            if (pilka.intersect(spike_, spikesDifference))
+            {
+                //std::cout << "Kuj!!!" << std::endl;
+                window.close();
+            }
+        };
+
+        spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka](Food f){ return pilka.intersect(f, eatingDifference);}), spam.end());
         
         spamsize = static_cast<int>(spam.size());
         
@@ -95,11 +124,13 @@ void Game::init(sf::RenderWindow &window)
             }
         }
 
-        //std::cout << "chuj: " << static_cast<int>(100*(maxFood - spamsize)/maxFood) << ", spam size: " <<spamsize << ", max size: " << maxFood << ", time elapsed: "<< std::endl;
+        //std::cout << "procent: " << static_cast<int>(100*(maxFood - spamsize)/maxFood) << ", spam size: " <<spamsize << ", max size: " << maxFood << ", time elapsed: "<< std::endl;
 
         for(auto& spam_ : spam) window.draw(spam_.shape_);
 
         window.draw(pilka.shape_);
+
+        for(auto& spike_ : spikes) window.draw(spike_.shape_);
 
         pilka.update(window);
 

@@ -16,5 +16,5 @@ if(platform.system() == "Linux"):
     # env_test.Append( LIBS = ['boost_unit_test_framework','sfml-graphics', 'sfml-window', 'sfml-system'] )
     # env.Append( CXXFLAGS="-std=c++11")
 
-env.Program( source = ['Game.cpp','main.cpp','Ball.cpp','Const.hpp', 'Player.cpp', 'Food.cpp', 'Gamer.cpp', 'Menu.cpp'], target = 'agario')
+env.Program( source = ['Game.cpp','main.cpp','Ball.cpp','Const.hpp', 'Player.cpp', 'Food.cpp', 'Gamer.cpp', 'Menu.cpp', 'Spike.cpp'], target = 'agario')
 # env_test.Program( source = ['GameTest.cpp', 'testdir/Game.cpp', 'testdir/Ball.cpp','testdir/Const.hpp', 'testdir/Player.cpp', 'testdir/Food.cpp', 'testdir/Gamer.cpp'], target = 'agario_game_test')

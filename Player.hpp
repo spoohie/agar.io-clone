@@ -14,7 +14,7 @@ class Player : public Ball
 public:
     Player (float , float , float, int, int, int );
     float velocity;
-    bool intersect(Food&);
+    bool intersect(Ball&, float proportion);
     void growing(Food&);
     ~Player ();
 };

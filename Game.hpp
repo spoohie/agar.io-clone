@@ -9,6 +9,7 @@
 #include "Player.hpp"
 #include "Food.hpp"
 #include "Gamer.hpp"
+#include "Spike.hpp"
 
 class Game
 {
@@ -18,5 +19,6 @@ public:
     Gamer pilka(float x, float y, float r, int red, int green, int blue);
     int spamsize;
     std::vector<Food> spam;
+    std::vector<Spike> spikes;
     ~Game();
 };

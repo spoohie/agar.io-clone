@@ -10,11 +10,11 @@ Player::Player(float x, float y, float r, int red, int green, int blue) : Ball(x
 
 Player::~Player() {}
 
-bool Player::intersect(Food &b_)
+bool Player::intersect(Ball &b_, float proportion)
 {
     float d = sqrtf( pow((b_.shape_.getPosition().x-shape_.getPosition().x),2.0f) +    pow((b_.shape_.getPosition().y-shape_.getPosition().y),2.0f) );
 
-    float diff = shape_.getRadius() - eatingDifference*b_.shape_.getRadius();
+    float diff = shape_.getRadius() - proportion*b_.shape_.getRadius();
 
     if (diff > d)
     {
