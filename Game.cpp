@@ -128,7 +128,7 @@ void Game::init(sf::RenderWindow &window)
 
         sf::Vector2f positionchuj = pilka.returnPosition();
 
-        std::cout << positionchuj.x << positionchuj.y << std::endl;
+        //std::cout << positionchuj.x << positionchuj.y << std::endl;
 
         for(auto& spam_ : spam) window.draw(spam_.shape_);
 
