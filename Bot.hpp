@@ -11,6 +11,6 @@ private:
     sf::Vector2i mouse_pos;
 public:
     Bot (float, float, float, int, int, int);
-    void movement(sf::RenderWindow &window, sf::Vector2f& playerPosition);
+    void movement(sf::RenderWindow &window, sf::Vector2f& playerPosition, int player_r);
     virtual ~Bot ();
 };

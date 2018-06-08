@@ -145,7 +145,7 @@ void Game::init(sf::RenderWindow &window)
 
         bot.update(window);
 
-        bot.movement(window, playerPosition);
+        bot.movement(window, playerPosition, pilka.returnRadius());
         //bot.movement(window, playerPosition)
 
         window.display();

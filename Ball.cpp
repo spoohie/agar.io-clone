@@ -18,6 +18,11 @@ sf::Vector2f Ball::returnPosition()
     return shape_.getPosition();
 }
 
+int Ball::returnRadius()
+{
+    return r_;
+}
+
 void Ball::update(sf::RenderWindow &window)
 {
     shape_.setRadius(r_);

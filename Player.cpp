@@ -15,17 +15,17 @@ float Player::distanceTo(Ball& b_)
     return sqrtf(pow((b_.returnPosition().x-returnPosition().x),2.0f) + pow((b_.returnPosition().y-returnPosition().y),2.0f) );
 }
 
-bool Player::intersect(Ball& b_, float proportion)
+bool Player::intersect(Ball& b_, const float &proportion)
 {
     //d = distanceTo(b_);
 
     //diff = shape_.getRadius() - proportion*b_.shape_.getRadius();
 
-    wyn = shape_.getRadius() - proportion*b_.shape_.getRadius() > distanceTo(b_);
-    if (wyn)
+    is_intersection = shape_.getRadius() - proportion*b_.shape_.getRadius() > distanceTo(b_);
+    if (is_intersection)
     {
           r_ += growthFactor;
           velocity = velocityFactor / r_;
     };
-    return wyn;
+    return is_intersection;
 }

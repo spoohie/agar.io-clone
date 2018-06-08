@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+*   \file
+*   \brief A Player class definition
+*/
+
 #include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
@@ -9,15 +14,41 @@
 #include "Food.hpp"
 #include "Const.hpp"
 
-class Player : public Ball 
+/** \class Player
+*   The Player class defines all of the abilities that has a moving ball.
+*   As said: all of moving balls have the ability to:
+*   - move
+*   - grow
+*   - intersect with other Balls
+*/
+class Player : public Ball
 {
 public:
-    Player (float , float , float, int, int, int );
-    float velocity;
-    //float diff;
-    bool wyn;
+    /** A  Player class constructor
+    *   @param x a float percentage number that defines horizontal position
+    *   @param y a float percentage number that defines vertical position
+    *   @param r a float number representing radius of a balls
+    *   @param red a integer number representing red color in RGB
+    *   @param green a integer number representing green color in RGB
+    *   @param blue a integer number representing blue color in RGB
+    */
+    Player (float x, float y, float r, int red, int green, int blue);
+    float velocity; /**< a float numbers representing player's velocity*/
+    float diff_x, diff_y; /**< a float numbers used to evaluate distance to cursor/player*/
+    bool is_intersection; /**< variable used to estimate difference of distance between edges of two balls*/
+    /** Counts distance to other ball object
+    *   @param b_ a Ball class object that will distance refer to
+    */
     float distanceTo(Ball& b_);
-    bool intersect(Ball&, float proportion);
-    void growing(Food&);
+    /** Checks if player's and other ball have intersect region
+    *   @param b_ a Ball class object that will intersect refer to
+    *   @param proportion a const float reference defining how much intersection is needed to be "intersected"
+    */
+    bool intersect(Ball& b_, const float &proportion);
+    /** Makes ball growing
+    *   @param f a Food class object that is being "eaten" by Player's balls
+    */
+    void growing(Food& f);
+    /** A Player class destructor */
     ~Player ();
 };
