@@ -13,6 +13,11 @@ void Ball::settingPosition(sf::RenderWindow &window)
     shape_.setPosition(x_coeff*window.getSize().x, y_coeff*window.getSize().y);
 }
 
+void Ball::resettingPosition(sf::RenderWindow &window, float xx, float yy)
+{
+    shape_.setPosition(xx*window.getSize().x, yy*window.getSize().y);
+}
+
 sf::Vector2f Ball::returnPosition()
 {
     return shape_.getPosition();

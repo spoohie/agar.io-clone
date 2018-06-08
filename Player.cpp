@@ -8,7 +8,11 @@ Player::Player(float x, float y, float r, int red, int green, int blue) : Ball(x
     velocity = velocityFactor / r_;
 }
 
-Player::~Player() {}
+/*
+void Player::movement(sf::RenderWindow& window) 
+{
+
+}*/
 
 float Player::distanceTo(sf::Vector2f v_)
 {
@@ -38,3 +42,5 @@ bool Player::intersect(Ball& b_, const float &proportion)
     };
     return is_intersection;
 }
+
+Player::~Player() {}

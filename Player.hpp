@@ -43,6 +43,8 @@ public:
     *   @param proportion a const float reference defining how much intersection is needed to be "intersected"
     */
 
+    void movement(sf::RenderWindow &window);
+
     sf::Vector2f normalize(const sf::Vector2f& source);
     /** Creates a normalized vector
     */

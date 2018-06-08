@@ -19,11 +19,12 @@ void Game::init(sf::RenderWindow &window)
     std::uniform_int_distribution<int> int_distribution(1, 100);
     std::mt19937 prob_eng(rd3());
 
-    
     //initialize player
     Gamer pilka(48,48,playerInitSize,0,0,255);
     pilka.settingPosition(window);
+    objects.push_back(&pilka);
     Bot bot(rnd_pos(),rnd_pos(), playerInitSize, 0, 255, 0);
+    objects.push_back(&bot);
     bot.settingPosition(window);
 
     window.setActive();
@@ -57,11 +58,12 @@ void Game::init(sf::RenderWindow &window)
    }
 
    sf::Clock food_clock;
-   //sf::Time food_clock_elapsed = food_clock.getElapsedTime();
 
    while(window.isOpen())
    {
         sf::Event event;
+        currentWindowX = window.getSize().x;
+        currentWindowY = window.getSize().y;
         while(window.pollEvent(event))
         {
             if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
@@ -73,11 +75,20 @@ void Game::init(sf::RenderWindow &window)
             if (event.type == sf::Event::Resized)
             {
                 window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+
                 for(auto& spam_ : spam)
                 {
                     spam_.settingPosition(window);
                     spam_.update(window);
                 }
+
+                pilka.resettingPosition(window, pilka.returnPosition().x/currentWindowX, pilka.returnPosition().y/currentWindowY);
+                pilka.update(window);
+
+                bot.resettingPosition(window, bot.returnPosition().x/currentWindowX, bot.returnPosition().y/currentWindowY);
+                bot.update(window);
+
+
                  for(auto& spike_ : spikes)
                 {
                    //necessary while comming from menu
@@ -102,17 +113,14 @@ void Game::init(sf::RenderWindow &window)
 
         for(auto& spike_ : spikes) 
         {
-            if (pilka.intersect(spike_, spikesDifference) && pilka.returnRadius() > 1.1*playerInitSize)
-            {
-                pilka.r_ = static_cast<int>(pilka.r_/1.1);
-                //window.close();
-            }
+
+            if (pilka.intersect(spike_, spikesDifference) && pilka.returnRadius() > playerInitSize) pilka.r_ -= 1;
+            if (bot.intersect(spike_, spikesDifference) && bot.returnRadius() > playerInitSize) bot.r_ -= 1;
+
         };
 
         spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka, &bot](Food f){ return pilka.intersect(f, eatingDifference) || bot.intersect(f, eatingDifference);}), spam.end());
-        
-        //spam.erase(std::remove_if(spam.begin(), spam.end(), [&bot](Food f){ return bot.intersect(f, eatingDifference);}), spam.end());
-                
+               
         spamsize = static_cast<int>(spam.size());
         
         if (spamsize < maxFood && food_clock.getElapsedTime().asMilliseconds() > food_time)
@@ -127,30 +135,45 @@ void Game::init(sf::RenderWindow &window)
             }
         }
 
-        //std::cout << "procent: " << static_cast<int>(100*(maxFood - spamsize)/maxFood) << ", spam size: " <<spamsize << ", max size: " << maxFood << ", time elapsed: "<< std::endl;
-
-        playerPosition = pilka.returnPosition();
-
-        //std::cout << positionchuj.x << positionchuj.y << std::endl;
-
         for(const auto& spam_ : spam) window.draw(spam_.shape_);
+            
+        if (pilka.intersect(bot, eatingDifference))
+        {
+            if(pilka.returnRadius() > bot.returnRadius()) window.close();
+            else if (pilka.returnRadius() > bot.returnRadius()) window.close();
+        }
+        
+        if(pilka.returnRadius() >= bot.returnRadius())
+        {
+            window.draw(bot.shape_);
+            window.draw(pilka.shape_);
+        }
+        else
+        {
+            window.draw(pilka.shape_);
+            window.draw(bot.shape_);
+        }
 
-        window.draw(pilka.shape_);
+        /*
+        std::sort (std::begin(objects), std::end(objects), 
+            [&] (Ball* b1, Ball* b2)
+            {
+                return b1->returnRadius() < b2->returnRadius();
+            });
 
-        window.draw(bot.shape_);
+
+        for(const auto object : objects) window.draw(object->shape_);*/
 
         for(const auto& spike_ : spikes) window.draw(spike_.shape_);
 
         pilka.update(window);
-
         pilka.movement(window);
 
         bot.update(window);
-
         bot.movement(window, pilka, spam);
-        //bot.movement(window, playerPosition)
 
         window.display();
+        //std::cout << window.getSize().y << " " << window.getSize().y << std::endl;
     }
 }
 Game::Game(){}

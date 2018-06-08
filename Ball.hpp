@@ -17,6 +17,7 @@ public:
 
     void update(sf::RenderWindow &window);
     void settingPosition(sf::RenderWindow &window);
+    void resettingPosition(sf::RenderWindow &window, float x, float y);
     sf::Vector2f returnPosition();
     int returnRadius();
     

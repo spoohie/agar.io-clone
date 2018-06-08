@@ -4,6 +4,12 @@ Gamer::Gamer(float x, float y, float r, int red, int green, int blue) : Player(x
 
 void Gamer::movement(sf::RenderWindow& window)
 {
+    if (returnPosition().x < 0) shape_.setPosition(0, returnPosition().y);
+    else if (returnPosition().x > window.getSize().x) shape_.setPosition(window.getSize().x, returnPosition().y);
+
+    if (returnPosition().y < 0) shape_.setPosition(returnPosition().x, 0);
+    else if (returnPosition().y > window.getSize().y) shape_.setPosition(returnPosition().x, window.getSize().y);
+
     mouse_pos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(window));
     direction = normalize(mouse_pos - shape_.getPosition());
     toMouseDistance = distanceTo(mouse_pos);
