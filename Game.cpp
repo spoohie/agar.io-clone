@@ -23,7 +23,7 @@ void Game::init(sf::RenderWindow &window)
     //initialize player
     Gamer pilka(48,48,playerInitSize,0,0,255);
     pilka.settingPosition(window);
-    Bot bot(rnd_pos(),rnd_pos(), playerInitSize, 0, 255, 0);
+    Bot bot(rnd_pos(),rnd_pos(), playerInitSize*2, 0, 255, 0);
     bot.settingPosition(window);
 
     window.setActive();

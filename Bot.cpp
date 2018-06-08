@@ -4,21 +4,27 @@ Bot::Bot(float x, float y, float r, int red, int green, int blue) : Player(x, y,
 
 void Bot::movement(sf::RenderWindow& window, Player& pilka)
 {
-    if ((distanceTo(pilka.returnPosition())-r_-pilka.r_) < chasingDistance) 
+
+    direction = normalize(pilka.returnPosition() - returnPosition());
+
+    if (pilka.returnRadius() >= r_)
     {
 
-        direction = normalize(pilka.returnPosition() - returnPosition());
-        shape_.move(-direction.x*velocity*botVelocityFactor, -direction.y*velocity*botVelocityFactor);
-        /*
-        diff_x = distanceTo(pilka) static_cast<float>(playerPosition.x) - shape_.getPosition().x;
-        diff_y = static_cast<float>(playerPosition.y) - shape_.getPosition().y;
+        if ((distanceTo(pilka.returnPosition())-r_-pilka.returnRadius()) < chasingDistance) 
+        {
+
+            shape_.move(-direction.x*velocity*botVelocityFactor, -direction.y*velocity*botVelocityFactor);
+            /*
+            diff_x = distanceTo(pilka) static_cast<float>(playerPosition.x) - shape_.getPosition().x;
+            diff_y = static_cast<float>(playerPosition.y) - shape_.getPosition().y;
 
 
-        shape_.move()*/
-    
-        std::cout << "chuj " << ++test << std::endl;
-    }
+            shape_.move()*/
+        
+            std::cout << "chuj " << ++test << std::endl;
+        }
 
+    } else shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor);
 
 
     /*
