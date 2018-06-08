@@ -35,7 +35,7 @@ public:
     Player (float x, float y, float r, int red, int green, int blue);
     float velocity; /**< a float numbers representing player's velocity*/
     bool is_intersection; /**< variable used to estimate difference of distance between edges of two balls*/
-    sf::Vector2f direction;
+    sf::Vector2f direction; /**< Normalised vector of direction of the ball*/
 
     float distanceTo(sf::Vector2f v_);
     /** Checks if player's and other ball have intersect region
