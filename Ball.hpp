@@ -11,16 +11,16 @@ class Ball
 {
 
 public:
-    sf::CircleShape shape_;
-    float x_coeff, y_coeff, r_;
     Ball (float , float , float, int, int, int );
+
+    int returnRadius();
+    float x_coeff, y_coeff, r_;
+    sf::CircleShape shape_;
+    sf::Vector2f returnPosition();
 
     void update(sf::RenderWindow &window);
     void settingPosition(sf::RenderWindow &window);
     void resettingPosition(sf::RenderWindow &window, float x, float y);
-    sf::Vector2f returnPosition();
-    int returnRadius();
-    
 
     virtual ~Ball () = 0;
 };

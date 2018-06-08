@@ -154,16 +154,6 @@ void Game::init(sf::RenderWindow &window)
             window.draw(bot.shape_);
         }
 
-        /*
-        std::sort (std::begin(objects), std::end(objects), 
-            [&] (Ball* b1, Ball* b2)
-            {
-                return b1->returnRadius() < b2->returnRadius();
-            });
-
-
-        for(const auto object : objects) window.draw(object->shape_);*/
-
         for(const auto& spike_ : spikes) window.draw(spike_.shape_);
 
         pilka.update(window);
@@ -173,7 +163,6 @@ void Game::init(sf::RenderWindow &window)
         bot.movement(window, pilka, spam);
 
         window.display();
-        //std::cout << window.getSize().y << " " << window.getSize().y << std::endl;
     }
 }
 Game::Game(){}

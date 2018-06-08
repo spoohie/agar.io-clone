@@ -11,8 +11,10 @@ private:
     float toMouseDistance;
 public:
     Gamer (float, float, float, int, int, int);
+
     void movement(sf::RenderWindow &window);
     void speedup();
     void defaultSpeed();
+    
     virtual ~Gamer ();
 };

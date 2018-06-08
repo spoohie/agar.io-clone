@@ -3,10 +3,7 @@
 
 Menu::Menu(float width, float height)
 {
-    if (!font.loadFromFile("arial.ttf"))
-    {}
-
-
+    if (!font.loadFromFile("arial.ttf")) {}
 
 	menu[0].setFont(font);
 	menu[0].setFillColor(sf::Color::Red);

@@ -16,13 +16,16 @@ class Game
 {
 public:
     Game();
+
+    int spamsize;
+    int currentWindowX, currentWindowY;
+    std::vector<Ball*> objects;
+    std::vector<Food> spam;
+    std::vector<Spike> spikes;
+
     void init(sf::RenderWindow &);
     Gamer pilka(float x, float y, float r, int red, int green, int blue);
     Bot bot(float x, float y, float r, int red, int green, int blue);
-    std::vector<Ball*> objects;
-    int spamsize;
-    int currentWindowX, currentWindowY;
-    std::vector<Food> spam;
-    std::vector<Spike> spikes;
+    
     ~Game();
 };

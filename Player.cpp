@@ -8,12 +8,6 @@ Player::Player(float x, float y, float r, int red, int green, int blue) : Ball(x
     velocity = velocityFactor / r_;
 }
 
-/*
-void Player::movement(sf::RenderWindow& window) 
-{
-
-}*/
-
 float Player::distanceTo(sf::Vector2f v_)
 {
     return sqrtf(pow((v_.x-returnPosition().x),2.0f) + pow((v_.y-returnPosition().y),2.0f) );
@@ -30,9 +24,6 @@ sf::Vector2f Player::normalize(const sf::Vector2f& source)
 
 bool Player::intersect(Ball& b_, const float &proportion)
 {
-    //d = distanceTo(b_);
-
-    //diff = shape_.getRadius() - proportion*b_.shape_.getRadius();
 
     is_intersection = shape_.getRadius() - proportion*b_.shape_.getRadius() > distanceTo(b_.returnPosition());
     if (is_intersection)

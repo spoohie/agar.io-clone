@@ -29,9 +29,7 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka, std::vector<Food>& s
                 });
 
             direction = normalize(gdzie.returnPosition() - returnPosition());
-            //std::cout << "x: " << gdzie.returnPosition().x << " y: " << gdzie.returnPosition().y << std::endl;
             shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor);
-            //for(const auto& spam_ : spam) distanceTo(spam_.returnPosition());
         }
 
     } else shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor);
