@@ -33,9 +33,14 @@ public:
     *   @param blue a integer number representing blue color in RGB
     */
     Player (float x, float y, float r, int red, int green, int blue);
+
     float velocity; /**< a float numbers representing player's velocity*/
     float diff_x, diff_y; /**< a float numbers used to evaluate distance to cursor/player*/
     bool is_intersection; /**< variable used to estimate difference of distance between edges of two balls*/
+
+    float velocity; /**< a float number representing player's velocity*/
+    bool wyn; /**< co do chuja to jest? */
+
     /** Counts distance to other ball object
     *   @param b_ a Ball class object that will distance refer to
     */
