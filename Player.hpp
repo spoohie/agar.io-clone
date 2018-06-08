@@ -13,7 +13,9 @@ class Player : public Ball
 {
 public:
     Player (float , float , float, int, int, int );
-    float velocity, diff;
+    float velocity;
+    //float diff;
+    bool wyn;
     float distanceTo(Ball& b_);
     bool intersect(Ball&, float proportion);
     void growing(Food&);
