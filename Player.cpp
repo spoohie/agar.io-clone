@@ -15,7 +15,7 @@ float Player::distanceTo(Ball& b_)
     return sqrtf(pow((b_.returnPosition().x-returnPosition().x),2.0f) + pow((b_.returnPosition().y-returnPosition().y),2.0f) );
 }
 
-bool Player::intersect(Ball& b_, float proportion)
+bool Player::intersect(Ball& b_, const float &proportion)
 {
     //d = distanceTo(b_);
 

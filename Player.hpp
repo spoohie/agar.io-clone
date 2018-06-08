@@ -9,7 +9,7 @@
 #include "Food.hpp"
 #include "Const.hpp"
 
-class Player : public Ball 
+class Player : public Ball
 {
 public:
     Player (float , float , float, int, int, int );
@@ -17,7 +17,7 @@ public:
     //float diff;
     bool wyn;
     float distanceTo(Ball& b_);
-    bool intersect(Ball&, float proportion);
+    bool intersect(Ball&, const float &proportion);
     void growing(Food&);
     ~Player ();
 };
