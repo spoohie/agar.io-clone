@@ -2,8 +2,26 @@
 
 Bot::Bot(float x, float y, float r, int red, int green, int blue) : Player(x, y, r, red, green, blue) {}
 
-void Bot::movement(sf::RenderWindow& window, sf::Vector2f& playerPosition, int player_r)
+void Bot::movement(sf::RenderWindow& window, Player& pilka)
 {
+    if ((distanceTo(pilka)-r_-pilka.r_) < chasingDistance) 
+    {
+        
+        direction = normalize(pilka.returnPosition() - returnPosition());
+        shape_.move(-direction.x*30*velocity, -direction.y*velocity*30);
+        /*
+        diff_x = distanceTo(pilka) static_cast<float>(playerPosition.x) - shape_.getPosition().x;
+        diff_y = static_cast<float>(playerPosition.y) - shape_.getPosition().y;
+
+
+        shape_.move()*/
+    
+        std::cout << "chuj " << ++test << std::endl;
+    }
+
+
+
+    /*
     if (player_r > 2*r_)
     {
         diff_x = static_cast<float>(playerPosition.x) - shape_.getPosition().x;
@@ -16,9 +34,7 @@ void Bot::movement(sf::RenderWindow& window, sf::Vector2f& playerPosition, int p
     else
     {
         shape_.move(0, 0);
-    }
-
-
+    }*/
 }
 
 

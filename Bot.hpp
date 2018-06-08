@@ -9,8 +9,10 @@ class Bot : public Player
 {
 private:
     sf::Vector2i mouse_pos;
+    sf::Vector2f direction;
 public:
     Bot (float, float, float, int, int, int);
-    void movement(sf::RenderWindow &window, sf::Vector2f& playerPosition, int player_r);
+    void movement(sf::RenderWindow &window, Player& pilka);
     virtual ~Bot ();
+    int test;
 };

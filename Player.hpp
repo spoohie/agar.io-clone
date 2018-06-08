@@ -38,7 +38,6 @@ public:
     float diff_x, diff_y; /**< a float numbers used to evaluate distance to cursor/player*/
     bool is_intersection; /**< variable used to estimate difference of distance between edges of two balls*/
 
-    float velocity; /**< a float number representing player's velocity*/
     bool wyn; /**< co do chuja to jest? */
 
     /** Counts distance to other ball object
@@ -48,6 +47,9 @@ public:
     /** Checks if player's and other ball have intersect region
     *   @param b_ a Ball class object that will intersect refer to
     *   @param proportion a const float reference defining how much intersection is needed to be "intersected"
+    */
+    sf::Vector2f normalize(const sf::Vector2f& source);
+    /** Creates a normalized vector
     */
     bool intersect(Ball& b_, const float &proportion);
     /** Makes ball growing
