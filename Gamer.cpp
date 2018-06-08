@@ -27,7 +27,7 @@ void Gamer::movement(sf::RenderWindow& window)
 
 void Gamer::speedup()
 {
-    if(r_> 2.0f* playerInitSize)
+    if(r_> 1.0f* playerInitSize)
     {
         velocity = std::min(2.0f*velocity,velocityFactor/playerInitSize);
         r_ /= 1.01f;
