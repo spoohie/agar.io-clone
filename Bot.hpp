@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
@@ -10,6 +11,6 @@ private:
     sf::Vector2i mouse_pos;
 public:
     Bot (float, float, float, int, int, int);
-    void movement(sf::RenderWindow &window);
+    void movement(sf::RenderWindow &window, sf::Vector2f& playerPosition);
     virtual ~Bot ();
 };

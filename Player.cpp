@@ -10,11 +10,16 @@ Player::Player(float x, float y, float r, int red, int green, int blue) : Ball(x
 
 Player::~Player() {}
 
-bool Player::intersect(Ball &b_, float proportion)
+float Player::distanceTo(Ball& b_)
 {
-    float d = sqrtf( pow((b_.shape_.getPosition().x-shape_.getPosition().x),2.0f) +    pow((b_.shape_.getPosition().y-shape_.getPosition().y),2.0f) );
+    return sqrtf(pow((b_.returnPosition().x-returnPosition().x),2.0f) + pow((b_.returnPosition().y-returnPosition().y),2.0f) );
+}
 
-    float diff = shape_.getRadius() - proportion*b_.shape_.getRadius();
+bool Player::intersect(Ball& b_, float proportion)
+{
+    d = distanceTo(b_);
+
+    diff = shape_.getRadius() - proportion*b_.shape_.getRadius();
 
     if (diff > d)
     {

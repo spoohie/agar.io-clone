@@ -1,5 +1,4 @@
 #include "Ball.hpp"
-#include <cmath>
 
 Ball::Ball (float x, float y, float r, int red, int green, int blue)
 {

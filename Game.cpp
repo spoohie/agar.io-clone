@@ -19,11 +19,12 @@ void Game::init(sf::RenderWindow &window)
     std::uniform_int_distribution<int> int_distribution(1, 100);
     std::mt19937 prob_eng(rd3());
 
-
-
+    
     //initialize player
     Gamer pilka(48,48,playerInitSize,0,0,255);
     pilka.settingPosition(window);
+    Bot bot(rnd_pos(),rnd_pos(), playerInitSize, 255,255,0);
+    bot.settingPosition(window);
 
     window.setActive();
 
@@ -126,7 +127,7 @@ void Game::init(sf::RenderWindow &window)
 
         //std::cout << "procent: " << static_cast<int>(100*(maxFood - spamsize)/maxFood) << ", spam size: " <<spamsize << ", max size: " << maxFood << ", time elapsed: "<< std::endl;
 
-        sf::Vector2f positionchuj = pilka.returnPosition();
+        playerPosition = pilka.returnPosition();
 
         //std::cout << positionchuj.x << positionchuj.y << std::endl;
 
@@ -134,11 +135,18 @@ void Game::init(sf::RenderWindow &window)
 
         window.draw(pilka.shape_);
 
+        window.draw(bot.shape_);
+
         for(const auto& spike_ : spikes) window.draw(spike_.shape_);
 
         pilka.update(window);
 
         pilka.movement(window);
+
+        bot.update(window);
+
+        bot.movement(window, playerPosition);
+        //bot.movement(window, playerPosition)
 
         window.display();
     }

@@ -10,6 +10,7 @@
 #include "Food.hpp"
 #include "Gamer.hpp"
 #include "Spike.hpp"
+#include "Bot.hpp"
 
 class Game
 {
@@ -17,8 +18,10 @@ public:
     Game();
     void init(sf::RenderWindow &);
     Gamer pilka(float x, float y, float r, int red, int green, int blue);
+    Bot bot(float x, float y, float r, int red, int green, int blue);
     int spamsize;
     std::vector<Food> spam;
     std::vector<Spike> spikes;
+    sf::Vector2f playerPosition;
     ~Game();
 };
