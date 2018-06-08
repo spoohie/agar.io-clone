@@ -7,7 +7,8 @@
 class Gamer : public Player
 {
 private:
-    sf::Vector2i mouse_pos;
+    sf::Vector2f mouse_pos;
+    float toMouseDistance;
 public:
     Gamer (float, float, float, int, int, int);
     void movement(sf::RenderWindow &window);

@@ -8,8 +8,7 @@
 class Bot : public Player
 {
 private:
-    sf::Vector2i mouse_pos;
-    sf::Vector2f direction;
+    sf::Vector2f mouse_pos;
 public:
     Bot (float, float, float, int, int, int);
     void movement(sf::RenderWindow &window, Player& pilka);

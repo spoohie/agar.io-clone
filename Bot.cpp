@@ -4,11 +4,11 @@ Bot::Bot(float x, float y, float r, int red, int green, int blue) : Player(x, y,
 
 void Bot::movement(sf::RenderWindow& window, Player& pilka)
 {
-    if ((distanceTo(pilka)-r_-pilka.r_) < chasingDistance) 
+    if ((distanceTo(pilka.returnPosition())-r_-pilka.r_) < chasingDistance) 
     {
-        
+
         direction = normalize(pilka.returnPosition() - returnPosition());
-        shape_.move(-direction.x*30*velocity, -direction.y*velocity*30);
+        shape_.move(-direction.x*velocity, -direction.y*velocity);
         /*
         diff_x = distanceTo(pilka) static_cast<float>(playerPosition.x) - shape_.getPosition().x;
         diff_y = static_cast<float>(playerPosition.y) - shape_.getPosition().y;
