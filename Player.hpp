@@ -19,7 +19,7 @@
 *   As said: all of moving balls have the ability to:
 *   - move
 *   - grow
-*   - intersect with other Balls
+*   - intersect with other Ball
 */
 class Player : public Ball
 {
