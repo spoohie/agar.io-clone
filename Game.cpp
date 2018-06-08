@@ -23,7 +23,7 @@ void Game::init(sf::RenderWindow &window)
     //initialize player
     Gamer pilka(48,48,playerInitSize,0,0,255);
     pilka.settingPosition(window);
-    Bot bot(rnd_pos(),rnd_pos(), playerInitSize*2, 0, 255, 0);
+    Bot bot(rnd_pos(),rnd_pos(), playerInitSize, 0, 255, 0);
     bot.settingPosition(window);
 
     window.setActive();
@@ -102,15 +102,17 @@ void Game::init(sf::RenderWindow &window)
 
         for(auto& spike_ : spikes) 
         {
-            if (pilka.intersect(spike_, spikesDifference))
+            if (pilka.intersect(spike_, spikesDifference) && pilka.returnRadius() > 1.1*playerInitSize)
             {
-                //std::cout << "Kuj!!!" << std::endl;
-                window.close();
+                pilka.r_ = static_cast<int>(pilka.r_/1.1);
+                //window.close();
             }
         };
 
-        spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka](Food f){ return pilka.intersect(f, eatingDifference);}), spam.end());
+        spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka, &bot](Food f){ return pilka.intersect(f, eatingDifference) || bot.intersect(f, eatingDifference);}), spam.end());
         
+        //spam.erase(std::remove_if(spam.begin(), spam.end(), [&bot](Food f){ return bot.intersect(f, eatingDifference);}), spam.end());
+                
         spamsize = static_cast<int>(spam.size());
         
         if (spamsize < maxFood && food_clock.getElapsedTime().asMilliseconds() > food_time)
@@ -145,7 +147,7 @@ void Game::init(sf::RenderWindow &window)
 
         bot.update(window);
 
-        bot.movement(window, pilka);
+        bot.movement(window, pilka, spam);
         //bot.movement(window, playerPosition)
 
         window.display();

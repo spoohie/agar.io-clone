@@ -11,7 +11,7 @@ private:
     sf::Vector2f mouse_pos;
 public:
     Bot (float, float, float, int, int, int);
-    void movement(sf::RenderWindow &window, Player& pilka);
+    void movement(sf::RenderWindow &window, Player& pilka, std::vector<Food>& spam);
     virtual ~Bot ();
     int test;
 };
