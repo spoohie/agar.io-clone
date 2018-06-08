@@ -31,7 +31,7 @@ void Game::init(sf::RenderWindow &window)
     for (int i=0; i<numspikes; ++i)
     {
         Spike spike(rnd_pos(),rnd_pos(), spikesSize, 255,255,0);
-        spikes.push_back(spike);
+        spikes.insert(spikes.end(), spike);
     }
 
     for(auto& spike_ : spikes)
@@ -45,7 +45,7 @@ void Game::init(sf::RenderWindow &window)
     for(int i=0; i<=maxFood ;++i)
     {
        Food food(rnd_pos(),rnd_pos(),5,rnd_col(),rnd_col(),rnd_col());
-       spam.push_back(food);
+       spam.insert(spam.end(), food);
     }
 
    for(auto& spam_ : spam)
@@ -118,7 +118,7 @@ void Game::init(sf::RenderWindow &window)
             if(int_distribution(prob_eng) < (static_cast<int>(100*(maxFood - spamsize)/maxFood)+10))
             {
                 Food food(rnd_pos(),rnd_pos(),5,rnd_col(),rnd_col(),rnd_col());
-                spam.push_back(food);
+                spam.insert(spam.end(),food);
                 spam.back().settingPosition(window);
                 spam.back().update(window);
             }
@@ -130,11 +130,11 @@ void Game::init(sf::RenderWindow &window)
 
         //std::cout << positionchuj.x << positionchuj.y << std::endl;
 
-        for(auto& spam_ : spam) window.draw(spam_.shape_);
+        for(const auto& spam_ : spam) window.draw(spam_.shape_);
 
         window.draw(pilka.shape_);
 
-        for(auto& spike_ : spikes) window.draw(spike_.shape_);
+        for(const auto& spike_ : spikes) window.draw(spike_.shape_);
 
         pilka.update(window);
 
