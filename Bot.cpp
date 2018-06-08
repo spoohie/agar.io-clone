@@ -17,4 +17,5 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka)
 
     } else shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor);
 
+}
 Bot::~Bot() {}
