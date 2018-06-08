@@ -17,11 +17,9 @@ float Player::distanceTo(Ball& b_)
 
 bool Player::intersect(Ball& b_, float proportion)
 {
-    d = distanceTo(b_);
-
     diff = shape_.getRadius() - proportion*b_.shape_.getRadius();
 
-    if (diff > d)
+    if (diff > distanceTo(b_))
     {
           r_ += growthFactor;
           velocity = velocityFactor / r_;
