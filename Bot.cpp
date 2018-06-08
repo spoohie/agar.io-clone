@@ -8,7 +8,7 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka)
     {
 
         direction = normalize(pilka.returnPosition() - returnPosition());
-        shape_.move(-direction.x*velocity, -direction.y*velocity);
+        shape_.move(-direction.x*velocity*0.7, -direction.y*velocity*0.7);
         /*
         diff_x = distanceTo(pilka) static_cast<float>(playerPosition.x) - shape_.getPosition().x;
         diff_y = static_cast<float>(playerPosition.y) - shape_.getPosition().y;
