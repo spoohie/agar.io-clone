@@ -141,7 +141,7 @@ void Game::init(sf::RenderWindow &window)
         if (pilka.intersect(bot, eatingDifference))
         {
             if(pilka.returnRadius() > bot.returnRadius()) window.close();
-            else if (pilka.returnRadius() > bot.returnRadius()) window.close();
+            else if (bot.returnRadius() > pilka.returnRadius()) window.close();
         }
         
         //to co poniżej ustala kolejnosc rysowania (tak zeby wiekszy zawsze przykrywal graficznie mniejszego)

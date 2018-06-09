@@ -31,13 +31,13 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka, std::vector<Food>& s
         else
         {
             // a jak jest bezpieczny to skanuje jedzonka i szuka najblizszego
-            Food gdzie = *std::min_element(std::begin(spam), std::end(spam),
+            nextTarget = *std::min_element(std::begin(spam), std::end(spam),
                 [&] (Food& s1, Food& s2)
                 {
                     return distanceTo(s1.returnPosition()) < distanceTo(s2.returnPosition());
                 });
 
-            direction = normalize(gdzie.returnPosition() - returnPosition());
+            direction = normalize(nextTarget.returnPosition() - returnPosition());
             shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor);
         }
 

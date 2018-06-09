@@ -9,6 +9,7 @@ class Bot : public Player
 {
 private:
     sf::Vector2f mouse_pos;
+    Food nextTarget;
 public:
     Bot (float, float, float, int, int, int);
 
