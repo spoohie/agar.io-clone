@@ -12,10 +12,6 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka, std::vector<Food>& s
     if (returnPosition().y < 0) shape_.setPosition(returnPosition().x, 0);
     else if (returnPosition().y > window.getSize().y) shape_.setPosition(returnPosition().x, window.getSize().y);
 
-    // wektor jednostkowy kierunku (bedzie mnozony przez predkosc)
-    direction = normalize(pilka.returnPosition() - returnPosition());
-
-
     // caly algorytm 3IQ Bota
 
     // jesli bot jest mniejszy od gracza:
@@ -26,6 +22,7 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka, std::vector<Food>& s
         if ((distanceTo(pilka.returnPosition())-r_-pilka.returnRadius()) <= chasingDistance) 
         {   
             // ...to spierdala
+    		direction = normalize(pilka.returnPosition() - returnPosition()); // wektor jednostkowy kierunku (bedzie mnozony przez predkosc)
             shape_.move(-direction.x*velocity*botVelocityFactor, -direction.y*velocity*botVelocityFactor);
         }
         else
@@ -41,7 +38,12 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka, std::vector<Food>& s
             shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor);
         }
 
-    } else shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor); // ten else sie wykonuje jak bot jest wiekszy 
-
+    } 
+    else
+    { 
+    	direction = normalize(pilka.returnPosition() - returnPosition());
+    	shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor); // ten else sie wykonuje jak bot jest wiekszy 
+    }
+    
 }
 Bot::~Bot() {}
