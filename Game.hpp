@@ -19,7 +19,6 @@ public:
 
     int spamsize;
     int currentWindowX, currentWindowY;
-    std::vector<Ball*> objects;
     std::vector<Food> spam;
     std::vector<Spike> spikes;
 

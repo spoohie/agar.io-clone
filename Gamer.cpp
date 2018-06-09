@@ -4,6 +4,7 @@ Gamer::Gamer(float x, float y, float r, int red, int green, int blue) : Player(x
 
 void Gamer::movement(sf::RenderWindow& window)
 {
+    // utrzymuje obiekt w mapie
     if (returnPosition().x < 0) shape_.setPosition(0, returnPosition().y);
     else if (returnPosition().x > window.getSize().x) shape_.setPosition(window.getSize().x, returnPosition().y);
 

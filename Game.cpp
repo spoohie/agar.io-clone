@@ -22,9 +22,7 @@ void Game::init(sf::RenderWindow &window)
     //initialize player
     Gamer pilka(48,48,playerInitSize,0,0,255);
     pilka.settingPosition(window);
-    objects.push_back(&pilka);
     Bot bot(rnd_pos(),rnd_pos(), playerInitSize, 0, 255, 0);
-    objects.push_back(&bot);
     bot.settingPosition(window);
 
     window.setActive();
@@ -111,6 +109,7 @@ void Game::init(sf::RenderWindow &window)
       //there are all of the mysteries (loop based)
         window.clear(sf::Color(2,2,2));
 
+        // interakcje z kolczatkami
         for(auto& spike_ : spikes) 
         {
 
@@ -119,10 +118,11 @@ void Game::init(sf::RenderWindow &window)
 
         };
 
+        // zjadanie kulek przez ruchome obiekty
         spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka, &bot](Food f){ return pilka.intersect(f, eatingDifference) || bot.intersect(f, eatingDifference);}), spam.end());
-               
-        spamsize = static_cast<int>(spam.size());
         
+        // odradzanie kulek     
+        spamsize = static_cast<int>(spam.size());
         if (spamsize < maxFood && food_clock.getElapsedTime().asMilliseconds() > food_time)
         {
             food_clock.restart();
@@ -136,13 +136,15 @@ void Game::init(sf::RenderWindow &window)
         }
 
         for(const auto& spam_ : spam) window.draw(spam_.shape_);
-            
+        
+        // warunki zwyciestwa/przegranej
         if (pilka.intersect(bot, eatingDifference))
         {
             if(pilka.returnRadius() > bot.returnRadius()) window.close();
             else if (pilka.returnRadius() > bot.returnRadius()) window.close();
         }
         
+        //to co poniżej ustala kolejnosc rysowania (tak zeby wiekszy zawsze przykrywal graficznie mniejszego)
         if(pilka.returnRadius() >= bot.returnRadius())
         {
             window.draw(bot.shape_);

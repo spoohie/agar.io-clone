@@ -20,7 +20,7 @@ public:
 
     void update(sf::RenderWindow &window);
     void settingPosition(sf::RenderWindow &window);
-    void resettingPosition(sf::RenderWindow &window, float x, float y);
+    void resettingPosition(sf::RenderWindow &window, float x, float y); // funkcja do ustawiania obiektu w odpowiednim miejscu przy skalowaniu okna
 
     virtual ~Ball () = 0;
 };
