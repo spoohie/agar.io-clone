@@ -9,10 +9,9 @@ class Bot : public Player
 {
 private:
     sf::Vector2f mouse_pos;
-    Food nextTarget;
+
 public:
     Bot (float, float, float, int, int, int);
-
     void movement(sf::RenderWindow &window, Player& pilka, std::vector<Food>& spam);
     
     virtual ~Bot ();
