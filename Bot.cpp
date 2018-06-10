@@ -22,7 +22,7 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka, std::vector<Food>& s
         if ((distanceTo(pilka.returnPosition())-r_-pilka.returnRadius()) <= chasingDistance) 
         {   
             // ...to spierdala
-    		direction = normalize(pilka.returnPosition() - returnPosition()); // wektor jednostkowy kierunku (bedzie mnozony przez predkosc)
+            direction = normalize(pilka.returnPosition() - returnPosition()); // wektor jednostkowy kierunku (bedzie mnozony przez predkosc)
             shape_.move(-direction.x*velocity*botVelocityFactor, -direction.y*velocity*botVelocityFactor);
         }
         else

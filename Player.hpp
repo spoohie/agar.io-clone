@@ -37,22 +37,26 @@ public:
     bool is_intersection; /**< variable used to estimate difference of distance between edges of two balls*/
     sf::Vector2f direction; /**< Normalised vector of direction of the ball*/
 
+    /** Distance from ball to certain vector
+    */
     float distanceTo(sf::Vector2f v_);
-    /** Checks if player's and other ball have intersect region
+
+
+    /** Creates a normalized vector
+    */
+    sf::Vector2f normalize(const sf::Vector2f& source);
+   
+   	/** Checks if player's and other ball have intersect region
     *   @param v_ is a Ball's coordinates vector that will intersect refer to
     *   @param proportion a const float reference defining how much intersection is needed to be "intersected"
     */
-
-    void movement(sf::RenderWindow &window);
-
-    sf::Vector2f normalize(const sf::Vector2f& source);
-    /** Creates a normalized vector
-    */
     bool intersect(Ball& b_, const float &proportion);
+    
     /** Makes ball growing
     *   @param f a Food class object that is being "eaten" by Player's balls
     */
     void growing(Food& f);
+
     /** A Player class destructor */
     ~Player ();
 };
