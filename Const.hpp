@@ -9,7 +9,7 @@ const int playerInitSize = 15;
 const float velocityFactor = 2;
 const float botVelocityFactor = 0.7; // to make it more playable (bot is slightly slower)
 const float eatingDifference = 0.4; // warunek przy ktorym mniejsza kulka jest zjedzona. Dla = 1.0 zjadajacy musi calkowicie pokryc zjadanego
-const float spikesDifference = -0.8; 
+const float spikesDifference = -0.8;
 const float growthFactor = 0.3;
 const int numberOfMenuItems = 3;
 const int food_time = 300;

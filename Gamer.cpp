@@ -1,7 +1,18 @@
 #include "Gamer.hpp"
 
+/** A Bot class constructor
+*   @param x a float percentage number that defines horizontal position
+*   @param y a float percentage number that defines vertical position
+*   @param r a float number representing radius of a balls
+*   @param red a integer number representing red color in RGB
+*   @param green a integer number representing green color in RGB
+*   @param blue a integer number representing blue color in RGB
+*/
 Gamer::Gamer(float x, float y, float r, int red, int green, int blue) : Player(x, y, r, red, green, blue) {}
 
+/** Implementation of player's ball moving features
+*   @param window a sf::RenderWindow member representing current window
+*/
 void Gamer::movement(sf::RenderWindow& window)
 {
     // utrzymuje obiekt w mapie
@@ -20,10 +31,10 @@ void Gamer::movement(sf::RenderWindow& window)
     }
     else
     {
-        shape_.move(direction.x*toMouseDistance*velocity/40, direction.y*velocity*toMouseDistance/40);    
+        shape_.move(direction.x*toMouseDistance*velocity/40, direction.y*velocity*toMouseDistance/40);
     }
 }
-
+/** Speeding up function after pressing spacebar */
 void Gamer::speedup()
 {
     if(r_> 1.0f* playerInitSize)
@@ -32,7 +43,7 @@ void Gamer::speedup()
         r_ /= 1.01f;
     } else velocity = velocityFactor/r_;
 }
-
+/** Calculating and setting default speed for the ball */
 void Gamer::defaultSpeed()
 {
     velocity = velocityFactor/r_;

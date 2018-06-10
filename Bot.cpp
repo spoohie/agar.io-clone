@@ -1,33 +1,40 @@
 #include "Bot.hpp"
 
+/** A Bot class constructor
+*   @param x a float percentage number that defines horizontal position
+*   @param y a float percentage number that defines vertical position
+*   @param r a float number representing radius of a balls
+*   @param red a integer number representing red color in RGB
+*   @param green a integer number representing green color in RGB
+*   @param blue a integer number representing blue color in RGB
+*/
 Bot::Bot(float x, float y, float r, int red, int green, int blue) : Player(x, y, r, red, green, blue) {}
 
+/** Bot's movement algorithm implementation
+*   @param window a sf::RenderWindow member representing current window
+*   @param pilka a Player object representing a player's ball
+*   @param spam a vector of food
+*/
 void Bot::movement(sf::RenderWindow& window, Player& pilka, std::vector<Food>& spam)
 {
 
-    // utrzymuje obiekt w mapie
+    /** Makes a bot stay in the bounds of the game window */
     if (returnPosition().x < 0) shape_.setPosition(0, returnPosition().y);
     else if (returnPosition().x > window.getSize().x) shape_.setPosition(window.getSize().x, returnPosition().y);
-
     if (returnPosition().y < 0) shape_.setPosition(returnPosition().x, 0);
     else if (returnPosition().y > window.getSize().y) shape_.setPosition(returnPosition().x, window.getSize().y);
 
-    // caly algorytm 3IQ Bota
+    // 3IQ bot algorithm
 
-    // jesli bot jest mniejszy od gracza:
     if (pilka.returnRadius() >= r_)
     {
-
-        //jesli bot jest w strefie zagrozenia...
-        if ((distanceTo(pilka.returnPosition())-r_-pilka.returnRadius()) <= chasingDistance) 
-        {   
-            // ...to spierdala
-            direction = normalize(pilka.returnPosition() - returnPosition()); // wektor jednostkowy kierunku (bedzie mnozony przez predkosc)
+        if ((distanceTo(pilka.returnPosition())-r_-pilka.returnRadius()) <= chasingDistance)
+        {
+            direction = normalize(pilka.returnPosition() - returnPosition());
             shape_.move(-direction.x*velocity*botVelocityFactor, -direction.y*velocity*botVelocityFactor);
         }
         else
         {
-            // a jak jest bezpieczny to skanuje jedzonka i szuka najblizszego
             Food nextTarget = *std::min_element(std::begin(spam), std::end(spam),
                 [&] (Food& s1, Food& s2)
                 {
@@ -38,12 +45,12 @@ void Bot::movement(sf::RenderWindow& window, Player& pilka, std::vector<Food>& s
             shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor);
         }
 
-    } 
-    else
-    { 
-    	direction = normalize(pilka.returnPosition() - returnPosition());
-    	shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor); // ten else sie wykonuje jak bot jest wiekszy 
     }
-    
+    else
+    {
+    	direction = normalize(pilka.returnPosition() - returnPosition());
+    	shape_.move(direction.x*velocity*botVelocityFactor, direction.y*velocity*botVelocityFactor);
+    }
+
 }
 Bot::~Bot() {}

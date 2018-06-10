@@ -1,25 +1,29 @@
 #include "Game.hpp"
-
+/**
+*   /brief
+*   The main function of a game
+*/
 void Game::init(sf::RenderWindow &window)
 {
+    /**
+    *   Random number generators for generating position, color and ball restoration
+    */
     std::random_device rd;
     std::mt19937 gen(rd());
-
     std::random_device rd2;
     std::mt19937 gen2(rd2());
-
     std::uniform_real_distribution<> dis_w(1,99);
-    //std::uniform_real_distribution<> dis_ball(2, 98);
     std::uniform_int_distribution<> col(minColor,maxColor);
-    auto rnd_pos = std::bind(dis_w, gen); //foods' position generator
-    //auto rnd_ball = std::bind(dis_ball,gen); //player's position generator
-    auto rnd_col = std::bind(col,gen); //color generator
+    auto rnd_pos = std::bind(dis_w, gen); /**< position generator */
+    auto rnd_col = std::bind(col,gen); /**< color generator */
 
     std::random_device rd3;
     std::uniform_int_distribution<int> int_distribution(1, 100);
-    std::mt19937 prob_eng(rd3());
+    std::mt19937 ballGen(rd3());
 
-    //initialize player
+    /**
+    *   Player and Bot initialisation
+    */
     Gamer pilka(48,48,playerInitSize,0,0,255);
     pilka.settingPosition(window);
     Bot bot(rnd_pos(),rnd_pos(), playerInitSize, 0, 255, 0);
@@ -27,35 +31,43 @@ void Game::init(sf::RenderWindow &window)
 
     window.setActive();
 
-    // spikes generating
+    /**
+    *   Loop for defining spikes positions
+    */
     for (int i=0; i<numspikes; ++i)
     {
         Spike spike(rnd_pos(),rnd_pos(), spikesSize, 255,255,0);
         spikes.insert(spikes.end(), spike);
     }
 
+    /**
+    *   Necessary update with comming from menu to game window
+    */
     for(auto& spike_ : spikes)
-   {
-       //necessary while comming from menu
+    {
        spike_.settingPosition(window);
        spike_.update(window);
-   }
-    
-    // food generating
+    }
+
+    /**
+    *   Loop for defining food positions
+    */
     for(int i=0; i<=maxFood ;++i)
     {
        Food food(rnd_pos(),rnd_pos(),5,rnd_col(),rnd_col(),rnd_col());
        spam.insert(spam.end(), food);
     }
 
+    /**
+    *   Necessary update with comming from menu to game window
+    */
    for(auto& spam_ : spam)
    {
-       //necessary while comming from menu
        spam_.settingPosition(window);
        spam_.update(window);
    }
 
-   sf::Clock food_clock;
+   sf::Clock food_clock; /**< Timer for food regeneration */
 
    while(window.isOpen())
    {
@@ -89,7 +101,6 @@ void Game::init(sf::RenderWindow &window)
 
                  for(auto& spike_ : spikes)
                 {
-                   //necessary while comming from menu
                     spike_.settingPosition(window);
                     spike_.update(window);
                 }
@@ -109,8 +120,10 @@ void Game::init(sf::RenderWindow &window)
       //there are all of the mysteries (loop based)
         window.clear(sf::Color(2,2,2));
 
-        // interakcje z kolczatkami
-        for(auto& spike_ : spikes) 
+        /**
+        *   Interacting with spikes
+        */
+        for(auto& spike_ : spikes)
         {
 
             if (pilka.intersect(spike_, spikesDifference) && pilka.returnRadius() > playerInitSize) pilka.r_ -= 1;
@@ -118,15 +131,19 @@ void Game::init(sf::RenderWindow &window)
 
         };
 
-        // zjadanie kulek przez ruchome obiekty
+        /**
+        *   Interacting with food
+        */
         spam.erase(std::remove_if(spam.begin(), spam.end(), [&pilka, &bot](Food f){ return pilka.intersect(f, eatingDifference) || bot.intersect(f, eatingDifference);}), spam.end());
-        
-        // odradzanie kulek     
+
+        /**
+        *   Food regeneration
+        */
         spamsize = static_cast<int>(spam.size());
         if (spamsize < maxFood && food_clock.getElapsedTime().asMilliseconds() > food_time)
         {
             food_clock.restart();
-            if(int_distribution(prob_eng) < (static_cast<int>(100*(maxFood - spamsize)/maxFood)+10))
+            if(int_distribution(ballGen) < (static_cast<int>(100*(maxFood - spamsize)/maxFood)+10))
             {
                 Food food(rnd_pos(),rnd_pos(),5,rnd_col(),rnd_col(),rnd_col());
                 spam.insert(spam.end(),food);
@@ -135,16 +152,28 @@ void Game::init(sf::RenderWindow &window)
             }
         }
 
-        for(const auto& spam_ : spam) window.draw(spam_.shape_);
-        
-        // warunki zwyciestwa/przegranej
+        for(const auto& spam_ : spam) window.draw(spam_.shape_); /**< Drawing food in window */
+
+        /**
+        *   Winning/losing conditions check
+        */
         if (pilka.intersect(bot, eatingDifference))
         {
-            if(pilka.returnRadius() > bot.returnRadius()) window.close();
-            else if (bot.returnRadius() > pilka.returnRadius()) window.close();
+            if(pilka.returnRadius() > bot.returnRadius())
+            {
+                std::cout << "You've won the game" << '\n';
+                window.close();
+            }
+            else if (bot.returnRadius() > pilka.returnRadius())
+            {
+                std::cout << "You've failed!" << '\n';
+                window.close();
+            }
         }
-        
-        //to co poniżej ustala kolejnosc rysowania (tak zeby wiekszy zawsze przykrywal graficznie mniejszego)
+
+        /**
+        *   A condition needed for a bigger ball to be drawn over smaller
+        */
         if(pilka.returnRadius() >= bot.returnRadius())
         {
             window.draw(bot.shape_);
@@ -156,15 +185,15 @@ void Game::init(sf::RenderWindow &window)
             window.draw(bot.shape_);
         }
 
-        for(const auto& spike_ : spikes) window.draw(spike_.shape_);
+        for(const auto& spike_ : spikes) window.draw(spike_.shape_); /**< Drawing spikes */
 
-        pilka.update(window);
-        pilka.movement(window);
+        pilka.update(window); /**< Updating player's ball radius and transform origin */
+        pilka.movement(window); /**< Player's ball movement */
 
-        bot.update(window);
-        bot.movement(window, pilka, spam);
+        bot.update(window); /**< Updating player's ball radius and transform origin */
+        bot.movement(window, pilka, spam); /** Bot's ball movement */
 
-        window.display();
+        window.display(); /**< Show actual frame of game */
     }
 }
 Game::Game(){}
