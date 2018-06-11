@@ -12,8 +12,8 @@ const float eatingDifference = 0.4; // warunek przy ktorym mniejsza kulka jest z
 const float spikesDifference = -0.8;
 const float growthFactor = 0.3;
 const int numberOfMenuItems = 3;
-const int food_time = 300;
-const int numspikes = 3;
+const int foodTime = 300;
+const int numSpikes = 3;
 const int spikesSize = 15;
 const int chasingDistance = 40;
 #endif

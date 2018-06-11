@@ -34,7 +34,7 @@ void Game::init(sf::RenderWindow &window)
     /**
     *   Loop for defining spikes positions
     */
-    for (int i=0; i<numspikes; ++i)
+    for (int i=0; i<numSpikes; ++i)
     {
         Spike spike(rnd_pos(),rnd_pos(), spikesSize, 255,255,0);
         spikes.insert(spikes.end(), spike);
@@ -67,7 +67,7 @@ void Game::init(sf::RenderWindow &window)
        spam_.update(window);
    }
 
-   sf::Clock food_clock; /**< Timer for food regeneration */
+   sf::Clock foodClock; /**< Timer for food regeneration */
 
    while(window.isOpen())
    {
@@ -140,9 +140,9 @@ void Game::init(sf::RenderWindow &window)
         *   Food regeneration
         */
         spamsize = static_cast<int>(spam.size());
-        if (spamsize < maxFood && food_clock.getElapsedTime().asMilliseconds() > food_time)
+        if (spamsize < maxFood && foodClock.getElapsedTime().asMilliseconds() > foodTime)
         {
-            food_clock.restart();
+            foodClock.restart();
             if(int_distribution(ballGen) < (static_cast<int>(100*(maxFood - spamsize)/maxFood)+10))
             {
                 Food food(rnd_pos(),rnd_pos(),5,rnd_col(),rnd_col(),rnd_col());
